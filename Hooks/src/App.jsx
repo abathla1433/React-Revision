@@ -8,6 +8,7 @@ const App = () => {
 
   const [notes,setNotes]=useState([]);
 
+
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -35,6 +36,14 @@ const App = () => {
     setHeading("");
     setDetails("");
   };
+
+  const deleteNote=(idx)=>{
+    const copyNotes=[...notes];
+    copyNotes.splice(idx,1);
+    console.log(idx);
+    setNotes(copyNotes);
+  }
+
 
   return (
 
@@ -146,10 +155,14 @@ const App = () => {
         ">
 
           {notes.map((note,idx)=>(
-            <div key={idx} className="h-52 w-40 bg-white rounded-4xl p-4 shadow-md">
-            <h2 className="top-5 absolute right-5 bg-red-500 p-4 text-xs">{<X />}</h2>
-            <h3 className="text-2xl font-bold">{note.heading}</h3>
-           <p>{note.details}</p>
+            <div key={idx} className="h-52 w-40 bg-white flex flex-col justify-between rounded-4xl p-4 pb-5  shadow-md">
+              <div>
+                <h3 className="text-2xl font-bold">{note.heading}</h3>
+                <p>{note.details}</p>
+              </div>
+              <button onClick={()=>{
+                deleteNote(idx);
+              }} className="bg-red-500 text-white text-xs rounded w-full  p-1 font-bold active:scale-95">Delete</button>
             </div>
           ))}
 
